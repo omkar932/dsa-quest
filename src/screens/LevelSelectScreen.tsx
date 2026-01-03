@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
@@ -20,9 +20,25 @@ export const LevelSelectScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp>();
   const route = useRoute<LevelSelectRouteProp>();
   const { worldId } = route.params;
-  const { getLevelProgress, isLevelUnlocked } = useProgress();
+  const { getLevelProgress, isLevelUnlocked, progress } = useProgress();
 
   const world = getWorld(worldId);
+
+  const worldProgress = useMemo(() => {
+    const currentWorldProgress = progress.worlds[worldId];
+    if (!currentWorldProgress) {
+      return { totalStars: 0, completedLevels: 0 };
+    }
+
+    const completedLevelsCount = Object.values(
+      currentWorldProgress.levels
+    ).filter((level) => level.completed).length;
+
+    return {
+      totalStars: currentWorldProgress.totalStars,
+      completedLevels: completedLevelsCount,
+    };
+  }, [progress.worlds, worldId]);
 
   if (!world) {
     return (
@@ -51,16 +67,39 @@ export const LevelSelectScreen: React.FC = () => {
               icon="arrow-back"
               variant="ghost"
               size="small"
-              textStyle={{ color: "#FFFFFF" }}
+              textStyle={{ color: theme.colors.primary.contrast }}
             />
 
             <View style={styles.worldInfo}>
-              <View style={styles.worldIconContainer}>
-                <Ionicons name={world.icon as any} size={32} color="#FFFFFF" />
+              <View
+                style={[
+                  styles.worldIconContainer,
+                  { backgroundColor: theme.colors.primary.contrastTransparent },
+                ]}
+              >
+                <Ionicons
+                  name={world.icon as any}
+                  size={32}
+                  color={theme.colors.primary.contrast}
+                />
               </View>
               <View>
-                <Text style={styles.worldName}>{world.name}</Text>
-                <Text style={styles.worldDescription}>{world.description}</Text>
+                <Text
+                  style={[
+                    styles.worldName,
+                    { color: theme.colors.primary.contrast },
+                  ]}
+                >
+                  {world.name}
+                </Text>
+                <Text
+                  style={[
+                    styles.worldDescription,
+                    { color: theme.colors.primary.contrast, opacity: 0.9 },
+                  ]}
+                >
+                  {world.description}
+                </Text>
               </View>
             </View>
 
@@ -81,7 +120,7 @@ export const LevelSelectScreen: React.FC = () => {
               <Text
                 style={[styles.progressValue, { color: theme.colors.text }]}
               >
-                0/{world.levels.length * 3}
+                {worldProgress.totalStars}/{world.levels.length * 3}
               </Text>
               <Text
                 style={[
@@ -97,7 +136,7 @@ export const LevelSelectScreen: React.FC = () => {
               <Text
                 style={[styles.progressValue, { color: theme.colors.text }]}
               >
-                0/{world.levels.length}
+                {worldProgress.completedLevels}/{world.levels.length}
               </Text>
               <Text
                 style={[
@@ -212,7 +251,6 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: "rgba(255, 255, 255, 0.2)",
     alignItems: "center",
     justifyContent: "center",
     marginRight: 16,
@@ -220,11 +258,9 @@ const styles = StyleSheet.create({
   worldName: {
     fontSize: 24,
     fontWeight: "700",
-    color: "#FFFFFF",
   },
   worldDescription: {
     fontSize: 14,
-    color: "rgba(255, 255, 255, 0.9)",
     marginTop: 4,
   },
   progressSection: {

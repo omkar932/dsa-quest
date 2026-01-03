@@ -2,6 +2,7 @@ import { GameState, GameMove, Complexity, GameResult } from "../types/game";
 import { Level, LevelChoice } from "../types/levels";
 import { calculateDamage } from "./scoring";
 import { applyCardEffect } from "./algorithms/effects";
+import { bubbleSort, quickSort, mergeSort } from "../utils/helpers";
 
 export interface GameEngineConfig {
   level: Level;
@@ -200,21 +201,24 @@ export class GameEngine {
         typeof el === "object" ? el.value : el
       );
 
+      let sortedValues: number[] = [];
+
       switch (params?.algorithm) {
         case "bubble":
-          values.sort((a: number, b: number) => a - b);
+          sortedValues = bubbleSort(values);
           break;
         case "quick":
-          values.sort((a: number, b: number) => a - b);
+          sortedValues = quickSort(values);
           break;
         case "merge":
-          values.sort((a: number, b: number) => a - b);
+          sortedValues = mergeSort(values);
           break;
         default:
-          values.sort((a: number, b: number) => a - b);
+          // Fallback to default sort if no algorithm specified or recognized
+          sortedValues = [...values].sort((a: number, b: number) => a - b);
       }
 
-      data.elements = values.map((v: number) => ({ value: v, isSorted: true }));
+      data.elements = sortedValues.map((v: number) => ({ value: v, isSorted: true }));
     }
     return data;
   }

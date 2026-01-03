@@ -51,18 +51,42 @@ export const WorldMapScreen: React.FC = () => {
     >
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Header */}
-        <LinearGradient colors={["#6C63FF", "#3B36C1"]} style={styles.header}>
+        <LinearGradient
+          colors={[theme.colors.primary.main, theme.colors.primary.dark]}
+          style={styles.header}
+        >
           <View style={styles.headerContent}>
             <TouchableOpacity
               onPress={() => navigation.goBack()}
               style={styles.backButton}
             >
-              <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
+              <Ionicons
+                name="arrow-back"
+                size={24}
+                color={theme.colors.primary.contrast}
+              />
             </TouchableOpacity>
-            <Text style={styles.headerTitle}>World Map</Text>
-            <View style={styles.starsContainer}>
-              <Ionicons name="trophy" size={20} color="#FBBF24" />
-              <Text style={styles.starsText}>{totalStars}</Text>
+            <Text style={[styles.headerTitle, { color: theme.colors.primary.contrast }]}>
+              World Map
+            </Text>
+            <View
+              style={[
+                styles.starsContainer,
+                {
+                  backgroundColor: theme.colors.primary.contrastTransparent,
+                },
+              ]}
+            >
+              <Ionicons
+                name="trophy"
+                size={20}
+                color={theme.colors.accent.warning}
+              />
+              <Text
+                style={[styles.starsText, { color: theme.colors.primary.contrast }]}
+              >
+                {totalStars}
+              </Text>
             </View>
           </View>
         </LinearGradient>
@@ -78,11 +102,19 @@ export const WorldMapScreen: React.FC = () => {
             Your Journey
           </Text>
           <View style={styles.progressBar}>
-            <View style={styles.progressBarBackground}>
+            <View
+              style={[
+                styles.progressBarBackground,
+                { backgroundColor: theme.colors.surfaceVariant },
+              ]}
+            >
               <View
                 style={[
                   styles.progressBarFill,
-                  { width: `${Math.min(100, (totalStars / 200) * 100)}%` },
+                  {
+                    width: `${Math.min(100, (totalStars / 200) * 100)}%`,
+                    backgroundColor: theme.colors.primary.main,
+                  },
                 ]}
               />
             </View>
@@ -151,7 +183,7 @@ export const WorldMapScreen: React.FC = () => {
                     <Ionicons
                       name={world.icon as any}
                       size={20}
-                      color="#FFFFFF"
+                      color={theme.colors.primary.contrast}
                     />
                   </View>
                   <Text
@@ -170,13 +202,19 @@ export const WorldMapScreen: React.FC = () => {
                 </View>
 
                 {index < WORLDS.length - 1 && (
-                  <View style={styles.pathLine}>
+                  <View
+                    style={[
+                      styles.pathLine,
+                      { backgroundColor: theme.colors.surfaceVariant },
+                    ]}
+                  >
                     <View
                       style={[
                         styles.pathLineFill,
                         {
                           width:
                             totalStars >= world.requiredStars ? "100%" : "0%",
+                          backgroundColor: theme.colors.primary.main,
                         },
                       ]}
                     />
@@ -212,18 +250,15 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24,
     fontWeight: "700",
-    color: "#FFFFFF",
   },
   starsContainer: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "rgba(255, 255, 255, 0.2)",
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,
   },
   starsText: {
-    color: "#FFFFFF",
     fontWeight: "600",
     marginLeft: 4,
   },
@@ -248,13 +283,11 @@ const styles = StyleSheet.create({
   },
   progressBarBackground: {
     height: 8,
-    backgroundColor: "rgba(0, 0, 0, 0.1)",
     borderRadius: 4,
     overflow: "hidden",
   },
   progressBarFill: {
     height: "100%",
-    backgroundColor: "#6C63FF",
     borderRadius: 4,
   },
   progressText: {
@@ -315,13 +348,11 @@ const styles = StyleSheet.create({
   pathLine: {
     height: 4,
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.1)",
     borderRadius: 2,
     marginHorizontal: 8,
     overflow: "hidden",
   },
   pathLineFill: {
     height: "100%",
-    backgroundColor: "#6C63FF",
   },
 });

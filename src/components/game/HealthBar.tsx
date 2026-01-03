@@ -54,59 +54,58 @@ export const HealthBar: React.FC<HealthBarProps> = ({
     }
   }, [current, showDamage]);
 
-  const barStyle = useAnimatedStyle(() => {
-    const color =
-      percentage > 50 ? "#10B981" : percentage > 25 ? "#F59E0B" : "#EF4444";
-
-    return {
-      width: `${widthAnim.value}%`,
-      backgroundColor: color,
+      const barStyle = useAnimatedStyle(() => {
+      const color =
+        percentage > 50 ? theme.colors.complexity.O1 : percentage > 25 ? theme.colors.complexity.ON : theme.colors.complexity.ON2;
+  
+      return {
+        width: `${widthAnim.value}%`,
+        backgroundColor: color,
+      };
+    });
+  
+    const containerStyle = useAnimatedStyle(() => ({
+      transform: [{ translateX: shakeAnim.value }],
+    }));
+  
+    const damageStyle = useAnimatedStyle(() => ({
+      opacity: damageOpacity.value,
+      transform: [{ translateY: -damageOpacity.value * 20 }],
+    }));
+  
+    const getHealthColor = () => {
+      if (percentage > 50) return theme.colors.complexity.O1;
+      if (percentage > 25) return theme.colors.complexity.ON;
+      return theme.colors.complexity.ON2;
     };
-  });
-
-  const containerStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: shakeAnim.value }],
-  }));
-
-  const damageStyle = useAnimatedStyle(() => ({
-    opacity: damageOpacity.value,
-    transform: [{ translateY: -damageOpacity.value * 20 }],
-  }));
-
-  const getHealthColor = () => {
-    if (percentage > 50) return "#10B981";
-    if (percentage > 25) return "#F59E0B";
-    return "#EF4444";
+  
+    return (
+      <Animated.View style={[styles.container, containerStyle]}>
+        <View style={styles.header}>
+          <Ionicons name="heart" size={20} color={getHealthColor()} />
+          <Text style={[styles.label, { color: theme.colors.text }]}>Health</Text>
+          <Text style={[styles.value, { color: theme.colors.text }]}>
+            {current}/{max}
+          </Text>
+        </View>
+  
+        <View
+          style={[
+            styles.barBackground,
+            { backgroundColor: theme.colors.surfaceVariant },
+          ]}
+        >
+          <Animated.View style={[styles.barFill, barStyle]} />
+        </View>
+  
+        {showDamage !== undefined && showDamage > 0 && (
+          <Animated.View style={[styles.damageContainer, damageStyle]}>
+            <Text style={[styles.damageText, { color: theme.colors.complexity.ON2 }]}>-{showDamage}</Text>
+          </Animated.View>
+        )}
+      </Animated.View>
+    );
   };
-
-  return (
-    <Animated.View style={[styles.container, containerStyle]}>
-      <View style={styles.header}>
-        <Ionicons name="heart" size={20} color={getHealthColor()} />
-        <Text style={[styles.label, { color: theme.colors.text }]}>Health</Text>
-        <Text style={[styles.value, { color: theme.colors.text }]}>
-          {current}/{max}
-        </Text>
-      </View>
-
-      <View
-        style={[
-          styles.barBackground,
-          { backgroundColor: theme.colors.surfaceVariant },
-        ]}
-      >
-        <Animated.View style={[styles.barFill, barStyle]} />
-      </View>
-
-      {showDamage !== undefined && showDamage > 0 && (
-        <Animated.View style={[styles.damageContainer, damageStyle]}>
-          <Text style={styles.damageText}>-{showDamage}</Text>
-        </Animated.View>
-      )}
-    </Animated.View>
-  );
-};
-
 const styles = StyleSheet.create({
   container: {
     width: "100%",

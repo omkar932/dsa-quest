@@ -92,7 +92,7 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({
   });
 
   // Toggle to true to disable AsyncStorage persistence for isolation/testing
-  const DEBUG_NO_PERSIST = true;
+  const DEBUG_NO_PERSIST = false;
 
   useEffect(() => {
     (async () => {

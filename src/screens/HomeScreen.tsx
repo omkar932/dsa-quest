@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   Text,
@@ -6,16 +6,16 @@ import {
   ScrollView,
   ImageBackground,
   StatusBar,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Button } from '../components/common/Button';
-import { useTheme } from '../hooks/useTheme';
-import { useProgress } from '../hooks/useProgress';
-import { RootStackParamList } from '../types/navigation';
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Button } from "../components/common/Button";
+import { useTheme } from "../hooks/useTheme";
+import { useProgress } from "../hooks/useProgress";
+import { RootStackParamList } from "../types/navigation";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -33,15 +33,28 @@ export const HomeScreen: React.FC = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Hero Section */}
         <LinearGradient
-          colors={['#6C63FF', '#3B36C1']}
+          colors={[theme.colors.primary.main, theme.colors.primary.dark]}
           style={styles.heroSection}
         >
           <View style={styles.heroContent}>
             <View style={styles.titleContainer}>
-              <Ionicons name="code-slash" size={48} color="#FFFFFF" />
-              <Text style={styles.title}>DSA Quest</Text>
+              <Ionicons
+                name="code-slash"
+                size={48}
+                color={theme.colors.primary.contrast}
+              />
+              <Text
+                style={[styles.title, { color: theme.colors.primary.contrast }]}
+              >
+                DSA Quest
+              </Text>
             </View>
-            <Text style={styles.subtitle}>
+            <Text
+              style={[
+                styles.subtitle,
+                { color: theme.colors.primary.contrast },
+              ]}
+            >
               Master Data Structures & Algorithms through gameplay
             </Text>
           </View>
@@ -56,7 +69,11 @@ export const HomeScreen: React.FC = () => {
         >
           <View style={styles.statsGrid}>
             <View style={styles.statCard}>
-              <Ionicons name="trophy" size={32} color="#FBBF24" />
+              <Ionicons
+                name="trophy"
+                size={32}
+                color={theme.colors.accent.warning}
+              />
               <Text style={[styles.statValue, { color: theme.colors.text }]}>
                 {progress.totalStars}
               </Text>
@@ -70,7 +87,11 @@ export const HomeScreen: React.FC = () => {
               </Text>
             </View>
             <View style={styles.statCard}>
-              <Ionicons name="stats-chart" size={32} color="#10B981" />
+              <Ionicons
+                name="stats-chart"
+                size={32}
+                color={theme.colors.complexity.O1}
+              />
               <Text style={[styles.statValue, { color: theme.colors.text }]}>
                 {progress.totalXp}
               </Text>
@@ -84,7 +105,11 @@ export const HomeScreen: React.FC = () => {
               </Text>
             </View>
             <View style={styles.statCard}>
-              <Ionicons name="card" size={32} color="#8B5CF6" />
+              <Ionicons
+                name="card"
+                size={32}
+                color={theme.colors.accent.card}
+              />
               <Text style={[styles.statValue, { color: theme.colors.text }]}>
                 {progress.unlockedCards.length}
               </Text>
@@ -95,7 +120,7 @@ export const HomeScreen: React.FC = () => {
                 ]}
               >
                 Cards Collected
-              </Text>
+              </Text>{" "}
             </View>
           </View>
         </View>
@@ -104,7 +129,7 @@ export const HomeScreen: React.FC = () => {
         <View style={styles.actionsSection}>
           <Button
             title="Continue Journey"
-            onPress={() => navigation.navigate('WorldMap')}
+            onPress={() => navigation.navigate("WorldMap")}
             icon="play"
             size="large"
             fullWidth
@@ -114,21 +139,11 @@ export const HomeScreen: React.FC = () => {
 
           <Button
             title="Card Collection"
-            onPress={() => navigation.navigate('Cards')}
+            onPress={() => navigation.navigate("Cards")}
             icon="card"
             size="large"
             fullWidth
             variant="secondary"
-            style={styles.actionButton}
-          />
-
-          <Button
-            title="World Map"
-            onPress={() => navigation.navigate('WorldMap')}
-            icon="map"
-            size="large"
-            fullWidth
-            variant="outline"
             style={styles.actionButton}
           />
         </View>
@@ -147,9 +162,16 @@ export const HomeScreen: React.FC = () => {
           <View style={styles.featureList}>
             <View style={styles.featureItem}>
               <View
-                style={[styles.featureIcon, { backgroundColor: '#3B82F6' }]}
+                style={[
+                  styles.featureIcon,
+                  { backgroundColor: theme.colors.complexity.OlogN },
+                ]}
               >
-                <Ionicons name="shield" size={24} color="#FFFFFF" />
+                <Ionicons
+                  name="shield"
+                  size={24}
+                  color={theme.colors.primary.contrast}
+                />
               </View>
               <View style={styles.featureContent}>
                 <Text
@@ -171,9 +193,16 @@ export const HomeScreen: React.FC = () => {
 
             <View style={styles.featureItem}>
               <View
-                style={[styles.featureIcon, { backgroundColor: '#8B5CF6' }]}
+                style={[
+                  styles.featureIcon,
+                  { backgroundColor: theme.colors.accent.card },
+                ]}
               >
-                <Ionicons name="card" size={24} color="#FFFFFF" />
+                <Ionicons
+                  name="card"
+                  size={24}
+                  color={theme.colors.primary.contrast}
+                />
               </View>
               <View style={styles.featureContent}>
                 <Text
@@ -194,9 +223,16 @@ export const HomeScreen: React.FC = () => {
 
             <View style={styles.featureItem}>
               <View
-                style={[styles.featureIcon, { backgroundColor: '#10B981' }]}
+                style={[
+                  styles.featureIcon,
+                  { backgroundColor: theme.colors.complexity.O1 },
+                ]}
               >
-                <Ionicons name="git-branch" size={24} color="#FFFFFF" />
+                <Ionicons
+                  name="git-branch"
+                  size={24}
+                  color={theme.colors.primary.contrast}
+                />
               </View>
               <View style={styles.featureContent}>
                 <Text
@@ -232,23 +268,22 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 32,
   },
   heroContent: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 16,
   },
   title: {
     fontSize: 40,
-    fontWeight: '800',
-    color: '#FFFFFF',
+    fontWeight: "800",
     marginLeft: 16,
   },
   subtitle: {
     fontSize: 18,
-    color: 'rgba(255, 255, 255, 0.9)',
-    textAlign: 'center',
+    opacity: 0.9,
+    textAlign: "center",
     lineHeight: 24,
   },
   statsSection: {
@@ -256,30 +291,30 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     padding: 20,
     borderRadius: 20,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 12,
     elevation: 5,
   },
   statsGrid: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   statCard: {
-    alignItems: 'center',
+    alignItems: "center",
     flex: 1,
     marginHorizontal: 8,
   },
   statValue: {
     fontSize: 24,
-    fontWeight: '700',
+    fontWeight: "700",
     marginTop: 8,
   },
   statLabel: {
     fontSize: 12,
     marginTop: 4,
-    textAlign: 'center',
+    textAlign: "center",
   },
   actionsSection: {
     padding: 24,
@@ -296,22 +331,22 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: "700",
     marginBottom: 20,
   },
   featureList: {
     gap: 16,
   },
   featureItem: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    alignItems: "flex-start",
   },
   featureIcon: {
     width: 48,
     height: 48,
     borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginRight: 16,
   },
   featureContent: {
@@ -319,7 +354,7 @@ const styles = StyleSheet.create({
   },
   featureTitle: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     marginBottom: 4,
   },
   featureDescription: {

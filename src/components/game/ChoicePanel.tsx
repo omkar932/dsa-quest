@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LevelChoice } from "../../types/levels";
@@ -19,6 +20,8 @@ interface ChoicePanelProps {
   disabled?: boolean;
   selectedCardId?: string | null;
 }
+
+const { width } = Dimensions.get("window");
 
 export const ChoicePanel: React.FC<ChoicePanelProps> = ({
   choices,
@@ -60,6 +63,7 @@ export const ChoicePanel: React.FC<ChoicePanelProps> = ({
                 backgroundColor: theme.colors.surface,
                 borderColor: isRequirementMet ? color : theme.colors.disabled,
                 opacity: isRequirementMet ? 1 : 0.5,
+                width: width * 0.75, // Make card width dynamic
               },
             ]}
             activeOpacity={0.7}
@@ -106,17 +110,29 @@ export const ChoicePanel: React.FC<ChoicePanelProps> = ({
               />
 
               {choice.requiredCard && (
-                <View style={styles.cardRequirement}>
+                <View
+                  style={[
+                    styles.cardRequirement,
+                    {
+                      backgroundColor: theme.colors.complexity.ON + "1A", // 10% opacity
+                    },
+                  ]}
+                >
                   <Ionicons
                     name="card"
                     size={16}
                     color={
                       selectedCardId === choice.requiredCard
-                        ? "#10B981"
-                        : "#F59E0B"
+                        ? theme.colors.complexity.O1
+                        : theme.colors.complexity.ON
                     }
                   />
-                  <Text style={styles.cardRequirementText}>
+                  <Text
+                    style={[
+                      styles.cardRequirementText,
+                      { color: theme.colors.complexity.ON },
+                    ]}
+                  >
                     {selectedCardId === choice.requiredCard
                       ? "Card Active"
                       : "Card Required"}
@@ -125,9 +141,23 @@ export const ChoicePanel: React.FC<ChoicePanelProps> = ({
               )}
 
               {choice.isOptimal && (
-                <View style={styles.optimalBadge}>
-                  <Ionicons name="star" size={14} color="#FBBF24" />
-                  <Text style={styles.optimalText}>Optimal</Text>
+                <View
+                  style={[
+                    styles.optimalBadge,
+                    {
+                      backgroundColor: theme.colors.accent.warning + "1A", // 10% opacity
+                    },
+                  ]}
+                >
+                  <Ionicons name="star" size={14} color={theme.colors.accent.warning} />
+                  <Text
+                    style={[
+                      styles.optimalText,
+                      { color: theme.colors.accent.warning },
+                    ]}
+                  >
+                    Optimal
+                  </Text>
                 </View>
               )}
             </View>

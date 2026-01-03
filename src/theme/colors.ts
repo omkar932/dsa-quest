@@ -5,6 +5,7 @@ export const colors = {
     light: "#8B85FF",
     dark: "#4A42CC",
     contrast: "#FFFFFF",
+    contrastTransparent: "rgba(255, 255, 255, 0.2)",
   },
 
   // Secondary palette
@@ -21,6 +22,8 @@ export const colors = {
     warning: "#FBBF24",
     error: "#F87171",
     info: "#60A5FA",
+    card: "#8B5CF6",
+    cardDark: "#7C3AED",
   },
 
   // Complexity colors (core game mechanic)
@@ -53,6 +56,10 @@ export const colors = {
     textSecondary: "#64748B",
     border: "#E2E8F0",
     disabled: "#CBD5E1",
+    error: "#F87171",
+    info: "#60A5FA",
+    warning: "#FBBF24",
+    success: "#4ADE80",
   },
 
   // Dark theme
@@ -64,6 +71,10 @@ export const colors = {
     textSecondary: "#94A3B8",
     border: "#475569",
     disabled: "#64748B",
+    error: "#F87171",
+    info: "#60A5FA",
+    warning: "#FBBF24",
+    success: "#4ADE80",
   },
 };
 

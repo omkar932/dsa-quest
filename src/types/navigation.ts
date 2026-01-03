@@ -12,6 +12,11 @@ export type RootStackParamList = {
     xpEarned: number;
     newCards: string[];
     isNewBest: boolean;
+    efficiencyRating: number;
+    steps: number;
+    healthRemaining: number;
+    newCardsUnlocked: string[];
+    optimalSteps: number;
   };
   Cards: undefined;
   Settings: undefined;

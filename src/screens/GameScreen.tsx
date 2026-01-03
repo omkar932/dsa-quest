@@ -188,12 +188,26 @@ export const GameScreen: React.FC = () => {
             icon="arrow-back"
             variant="ghost"
             size="small"
-            textStyle={{ color: "#FFFFFF" }}
+            textStyle={{ color: theme.colors.primary.contrast }}
           />
 
           <View style={styles.levelInfo}>
-            <Text style={styles.levelName}>{level.name}</Text>
-            <Text style={styles.levelDescription}>{level.description}</Text>
+            <Text
+              style={[
+                styles.levelName,
+                { color: theme.colors.primary.contrast },
+              ]}
+            >
+              {level.name}
+            </Text>
+            <Text
+              style={[
+                styles.levelDescription,
+                { color: theme.colors.primary.contrast, opacity: 0.8 },
+              ]}
+            >
+              {level.description}
+            </Text>
           </View>
 
           <Button
@@ -202,7 +216,7 @@ export const GameScreen: React.FC = () => {
             icon="bulb"
             variant="ghost"
             size="small"
-            textStyle={{ color: "#FFFFFF" }}
+            textStyle={{ color: theme.colors.primary.contrast }}
           />
         </View>
       </View>
@@ -341,49 +355,61 @@ const styles = StyleSheet.create({
   levelName: {
     fontSize: 18,
     fontWeight: "700",
-    color: "#FFFFFF",
   },
   levelDescription: {
     fontSize: 12,
-    color: "rgba(255, 255, 255, 0.8)",
     marginTop: 2,
   },
   objectiveSection: {
-    margin: 16,
+    marginHorizontal: 16,
+    marginTop: 16, // Add some top margin
     padding: 16,
     borderRadius: 12,
+    shadowColor: "#000", // Add subtle shadow for depth
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
   },
   objectiveHeader: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 8,
+    marginBottom: 10, // Increase margin for better separation
   },
   objectiveTitle: {
-    fontSize: 16,
+    fontSize: 18, // Slightly larger title
     fontWeight: "600",
     marginLeft: 8,
   },
   objectiveText: {
-    fontSize: 14,
-    lineHeight: 20,
+    fontSize: 15, // Slightly larger text for readability
+    lineHeight: 22,
   },
   statsSection: {
     flexDirection: "row",
-    paddingHorizontal: 16,
+    paddingHorizontal: 8, // Adjust horizontal padding
+    marginTop: 16, // Add top margin
     marginBottom: 16,
+    justifyContent: "space-around", // Ensure even distribution
   },
   statItem: {
     flex: 1,
     marginHorizontal: 8,
+    alignItems: "center", // Center content within stat items
   },
   dsSection: {
     marginHorizontal: 16,
     marginBottom: 16,
     padding: 16,
     borderRadius: 12,
+    shadowColor: "#000", // Add subtle shadow for depth
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
   },
   sectionTitle: {
-    fontSize: 16,
+    fontSize: 18, // Slightly larger title
     fontWeight: "600",
     marginBottom: 12,
   },

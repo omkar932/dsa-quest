@@ -1,9 +1,9 @@
-import { useColorScheme } from "react-native";
 import { useMemo } from "react";
 import { createTheme, Theme } from "../theme";
+import { useThemeContext } from "../context/ThemeContext";
 
 export function useTheme(): Theme {
-  const colorScheme = useColorScheme() || "dark";
+  const { colorScheme } = useThemeContext();
 
   const theme = useMemo(() => {
     return createTheme(colorScheme);

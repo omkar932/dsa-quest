@@ -1,5 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import { useTheme } from "../../hooks/useTheme";
+
+const { width } = Dimensions.get("window");
 
 export const WorldCard: React.FC<{
   world?: any;
@@ -7,15 +10,24 @@ export const WorldCard: React.FC<{
   isUnlocked?: boolean;
   onPress?: () => void;
 }> = ({ world, progress, isUnlocked = true, onPress }) => {
+  const theme = useTheme();
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[styles.card, { opacity: isUnlocked ? 1 : 0.5 }]}
+      style={[
+        styles.card,
+        {
+          opacity: isUnlocked ? 1 : 0.5,
+          backgroundColor: theme.colors.surface,
+        },
+      ]}
     >
-      <Text style={styles.title}>{world?.name || world?.id || "World"}</Text>
+      <Text style={[styles.title, { color: theme.colors.text }]}>
+        {world?.name || world?.id || "World"}
+      </Text>
       {progress && (
         <Text
-          style={{ color: "#ccc", marginTop: 6 }}
+          style={[styles.progressText, { color: theme.colors.textSecondary }]}
         >{`${progress.completed}/${progress.total} completed • ${progress.stars}⭐`}</Text>
       )}
     </TouchableOpacity>
@@ -26,7 +38,20 @@ const styles = StyleSheet.create({
   card: {
     padding: 16,
     borderRadius: 12,
-    backgroundColor: "#2b2b2b",
+    width: (width - 48) / 2, // 24 padding on each side, 16 spacing between
+    marginBottom: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
-  title: { color: "#fff", fontSize: 16 },
+  title: {
+    fontSize: 16,
+    fontWeight: "600",
+    marginBottom: 4,
+  },
+  progressText: {
+    fontSize: 12,
+  },
 });
